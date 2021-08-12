@@ -1,0 +1,22 @@
+:root {
+    --bs-warning-rgb : 165, 42, 42 !important;
+}
+   
+
+.navbar-expand {
+    justify-content: flex-end !important;
+}
+
+.bg {
+    height: 350px !important;
+    background-color: rgb(255,223,211) !important;
+    &-footer {
+        height: 50px;
+        background-color: rgb(165, 42, 42);
+    }
+}
+
+a {
+    color: white !important;
+    text-decoration: none !important;
+}
