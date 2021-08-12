@@ -1,0 +1,22 @@
+{
+  "name": "p5_bianco_camille",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "sass": "sass --watch ./Sass/pageScssOrinoco.scss:./pageCssOrinoco.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CamilleBC/CamilleBianco_5_11082021.git"
+  },
+  "author": "Camille BIANCO",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CamilleBC/CamilleBianco_5_11082021/issues"
+  },
+  "homepage": "https://github.com/CamilleBC/CamilleBianco_5_11082021#readme",
+  "dependencies": {
+    "bootstrap": "^5.1.0"
+  }
+}
