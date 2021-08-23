@@ -3,12 +3,16 @@
   --bs-warning-rgb: 165, 42, 42 !important;
 }
 
+.bg-brown {
+  border-color: brown !important;
+}
+
 .navbar-expand {
   justify-content: flex-end !important;
 }
 
 .bg {
-  height: 350px !important;
+  height: 1500px !important;
   background-color: #ffdfd3 !important;
 }
 .bg-footer {
