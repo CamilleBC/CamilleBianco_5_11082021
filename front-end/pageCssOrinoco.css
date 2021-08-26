@@ -20,8 +20,14 @@
   background-color: brown;
 }
 
+.tailleSaisie {
+  width: 10%;
+}
+.tailleSelect {
+  width: 30%;
+}
+
 a {
-  color: white !important;
   text-decoration: none !important;
 }
 

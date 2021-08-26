@@ -19,7 +19,15 @@
     }
 }
 
+.taille{
+    &Saisie{
+        width: 10%;
+    }
+    &Select{
+        width: 30%;
+    }
+}
+
 a {
-    color: white !important;
     text-decoration: none !important;
 }
