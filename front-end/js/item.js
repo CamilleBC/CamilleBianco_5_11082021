@@ -28,7 +28,7 @@ fetch(url)
                 </select>
               </div>
               </div>
-              <a href="./panier.html">Ajouter au panier</a>
+              <button onclick="window.location.href ='./panier.html';">Ajouter au panier</button>
             </div>
             `;
             const select = document.getElementById('color');
