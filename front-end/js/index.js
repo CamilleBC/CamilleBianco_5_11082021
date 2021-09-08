@@ -5,7 +5,11 @@ fetch('http://localhost:3000/api/teddies')
     }
   })
   .then(function(resJson) {
+    
+    
     resJson.forEach(item => {
+      const priceEuros = item.price / 100;
+      const price = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(priceEuros);
         const DIV  = document.getElementById('items') ;
         DIV.innerHTML += `
         <div class="card col-5 m-auto" style="width : 20rem">
@@ -13,7 +17,7 @@ fetch('http://localhost:3000/api/teddies')
           <img class="card-img-top w-75 h-50 mx-auto" src="${item.imageUrl}">
           <div class="card-body d-flex flex-column">
               <p class"card-text">${item.description}</p>
-              <div class"card-text">${item.price} €</div>
+              <div class"card-text">${price}</div>
               <a class"btn btn-primary" href="./pages/produit.html?_id=${item._id}">Voir plus</a>
           </div>
         </div>
