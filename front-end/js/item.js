@@ -88,10 +88,15 @@ fetch(url)
                     prix : teddy.get('price')
                 };
                   
-                  if (localStorage.length >= 1 ) {
-                    const key = `${data.name}`+ ' ' + obj.color;
-                    const ours = JSON.parse(localStorage.getItem(key));
-                  if (typeof ours !== null) {
+                    const clé = `${data.name}`+ ' ' + obj.color;
+                    const ours = JSON.parse(localStorage.getItem(clé));
+                  if (ours === null) {
+                    panier.set(clé, obj);
+                    for ([key, value] of panier) {
+                      localStorage.setItem(key, JSON.stringify(value));
+                    }
+                  }  
+                  else {
                     const quantiteExistante = parseFloat(ours.quantite);
                     const newQuantite = quantiteExistante + obj.quantite
 
@@ -105,15 +110,7 @@ fetch(url)
                       prix : newPrix
                     }
                     
-                    localStorage.setItem(key, JSON.stringify(newObject));
-                    }
-                    
-                  }  
-                  else {
-                    panier.set(`${data.name}`+ ' ' + obj.color, obj);
-                    for ([key, value] of panier) {
-                      localStorage.setItem(key, JSON.stringify(value));
-                    }
+                    localStorage.setItem(clé, JSON.stringify(newObject));
                 }
               };
               addToPanier(resJson);
@@ -125,3 +122,5 @@ fetch(url)
       .catch(function(err) {
         // Une erreur est survenue
       });
+
+     
