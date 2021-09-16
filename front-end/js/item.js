@@ -1,13 +1,6 @@
 let id = window.location.search.substr(5);
 let url = 'http://localhost:3000/api/teddies/'+ id;
 
-function getColor(selectColor) {
-  const valueColor = selectColor.value;  
-}
-
-function getQuantity(selectQuantity) {
-  const valueQuantity = selectQuantity.value;  
-}
 
 fetch(url)
     .then(function(res) {
@@ -15,7 +8,8 @@ fetch(url)
           return res.json();
         }
       })
-      .then(function(resJson) {;
+      .then(function(resJson) {
+
             const priceEuros = resJson.price / 100;
             const price = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(priceEuros);
             const DIV  = document.getElementById('produit');
@@ -49,41 +43,85 @@ fetch(url)
                option.innerHTML = color;
                select.appendChild(option)
             }
+            //Préparation de la Map pour récupérer information
+                const teddy = new Map()
 
-            //Préparer les éléments à stocker
-            const nom =resJson.name;
-            console.log(nom);
-            
+                //Nom
+                const nom =resJson.name; 
+                teddy.set ('name', nom) 
 
-            const colorChoose = document.getElementById('color');
-            let colorValue= colorChoose.value;
-            colorChoose.addEventListener('change', function(e){
-              colorValue = colorChoose.value
-            });
+                //Couleur
+                const colorChoose = document.getElementById('color');
+                let colorValue= colorChoose.value;
+                teddy.set('color', colorValue);
+                colorChoose.addEventListener('change', function(e){
+                  colorValue = colorChoose.value
+                  teddy.set('color', colorValue);
+                });
+               
+                //Quantité et prix total
+                const quantite = document.getElementById('quantite');
+                let quantityValue = quantite.value;
+                teddy.set('quantite', quantityValue);
+                let priceTotal = parseFloat(price);
+                teddy.set('price', priceTotal)
+                quantite.addEventListener('change', function(e){
+                  quantityValue = quantite.value;
+                  teddy.set('quantite', quantityValue);
+                  priceTotal = parseFloat(price) * quantityValue;
+                  teddy.set('price', priceTotal);
+                });
 
-            const quantite = document.getElementById('quantite');
-            let quantityValue = quantite.value;
-            let priceTotal = parseFloat(price);
-            quantite.addEventListener('change', function(e){
-              quantityValue = quantite.value;
-              priceTotal = parseFloat(price) * quantityValue;
-            });
-            
-
-            //Appuyer sur le bouton stock dans le panier 
-            const button = document.getElementById('button')
-            button.addEventListener('click', function(e) {
-              e.preventDefault();
-              localStorage.setItem('nom', nom);
-              localStorage.setItem('quantite', quantityValue);
-              localStorage.setItem('color', colorValue);
-              localStorage.setItem('price', priceTotal);
-              console.log(localStorage);
+                //Faire panier
+                const panier = new Map();
+                
+                               
+                const button = document.getElementById('button')
+                button.addEventListener('click', function(e) {
+                  e.preventDefault();
+                  function addToPanier(data){
               
+                  const obj = {
+                    name : teddy.get('name'), 
+                    color : teddy.get('color'),
+                    quantite : parseFloat(teddy.get('quantite')),
+                    prix : teddy.get('price')
+                };
+                  
+                  if (localStorage.length >= 1 ) {
+                    const key = `${data.name}`+ ' ' + obj.color;
+                    const ours = JSON.parse(localStorage.getItem(key));
+                  if (typeof ours !== null) {
+                    const quantiteExistante = parseFloat(ours.quantite);
+                    const newQuantite = quantiteExistante + obj.quantite
+
+                    const prixExistant = parseFloat(ours.prix)
+                    const newPrix = prixExistant + obj.prix
+          
+                    const newObject = {
+                      name : teddy.get('name'),
+                      color : teddy.get('color'),
+                      quantite : newQuantite,
+                      prix : newPrix
+                    }
+                    
+                    localStorage.setItem(key, JSON.stringify(newObject));
+                    }
+                    
+                  }  
+                  else {
+                    panier.set(`${data.name}`+ ' ' + obj.color, obj);
+                    for ([key, value] of panier) {
+                      localStorage.setItem(key, JSON.stringify(value));
+                    }
+                }
+              };
+              addToPanier(resJson);
+              console.log(localStorage)
             })
+
       })
       
       .catch(function(err) {
         // Une erreur est survenue
       });
-      console.log(localStorage)

@@ -30,4 +30,6 @@ fetch('http://localhost:3000/api/teddies')
     // Une erreur est survenue
   });
 
+  console.log(localStorage)
+  
   
