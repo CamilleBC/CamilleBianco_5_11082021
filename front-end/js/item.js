@@ -18,8 +18,8 @@ fetch(url)
               <h5 id ="nom" class="card-title text-center bg-warning p-2 mt-1 text-white">${resJson.name}</h5>
               <img class="card-img-top w-75 h-50 mx-auto" src="${resJson.imageUrl}">
               <div class="card-body d-flex flex-column">
-                <p class"card-text">${resJson.description}</p>
-                <div class"card-text">${price}</div>
+                <p class="card-text">${resJson.description}</p>
+                <div class="card-text">${price}</div>
               <div class="card-text d-flex">
                 <p class="mt-3">Quantité</p>
                 <input id ="quantite" type="number" min="1" name="quantité" class="tailleSaisie m-2">
@@ -30,7 +30,7 @@ fetch(url)
                 </select>
               </div>
               </div>
-              <a id='button' class="btn btn-secondary" href="#" role="button">Ajoutez au panier</a>
+              <a id='button' class="btn btn-secondary" href="./panier.html" role="button">Ajoutez au panier</a>
             </div>
             `;
             DIV.innerHTML += item
@@ -78,7 +78,6 @@ fetch(url)
                                
                 const button = document.getElementById('button')
                 button.addEventListener('click', function(e) {
-                  e.preventDefault();
                   function addToPanier(data){
               
                   const obj = {

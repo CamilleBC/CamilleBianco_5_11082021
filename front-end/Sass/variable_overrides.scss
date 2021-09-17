@@ -11,7 +11,7 @@
 }
 
 .bg {
-    height: 1500px !important;
+    height: 100% !important;
     background-color: rgb(255,223,211) !important;
     &-footer {
         height: 50px;
@@ -30,4 +30,8 @@
 
 a {
     text-decoration: none !important;
+}
+
+.hauteurCellule {
+    height: 10% !important;
 }

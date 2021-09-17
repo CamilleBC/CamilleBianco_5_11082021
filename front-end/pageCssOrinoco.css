@@ -12,7 +12,7 @@
 }
 
 .bg {
-  height: 1500px !important;
+  height: 100% !important;
   background-color: #ffdfd3 !important;
 }
 .bg-footer {
@@ -29,6 +29,10 @@
 
 a {
   text-decoration: none !important;
+}
+
+.hauteurCellule {
+  height: 10% !important;
 }
 
 /*!
