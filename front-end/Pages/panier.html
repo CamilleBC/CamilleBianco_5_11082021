@@ -23,9 +23,10 @@
             </nav>
         </header>
      </div>
- 
-     <div class="container-fluid">  
-     <div class="bg row" id="panier" >
+     
+     <div class="bg container-fluid d-flex justify-content-between">  
+     <div class="w-75 col-6" id="panier" >
+         <h3>Votre commande</h2>
         <table class="table">
             <thead>
               <tr>
@@ -41,8 +42,8 @@
           </table>
            
      </div>
-     <div class="bg row" id="panier_totale">
-        <div class="card h-50 w-25">
+     <div class="bg col-6 w-25" id="panier_totale">
+        <div class="card h-50">
             <h5 id ="nom" class="card-title p-2 mt-1">TOTAL</h5>
             <div class="card-body d-flex flex-column">
               <div class="card-text"></div>
@@ -59,16 +60,16 @@
                 <p class="mt-1" id="livraison">Gratuit</p>
               </div>
             </div>
-            <div class="card-text d-flex justify-content-between">
+            <div class="card-text d-flex justify-content-around">
                 <p class="mt-3">Total</p>
                 <p class="mt-3" id="total"></p>
               </div>
-              <a id='button' class="btn btn-secondary" href="./panier.html" role="button">Valider</a>
+              <a id='button' class="btn btn-secondary" href="./formulaire.html" role="button">Valider</a>
             </div>
-            
-          </div>
+        </div>
      </div>
      </div>
+     
  
      <div class="container-fluid">
      <footer class="row bg-footer">

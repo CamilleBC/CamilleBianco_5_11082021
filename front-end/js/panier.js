@@ -1,10 +1,13 @@
-console.log(localStorage)
+
 const panierArray = new Map();
 for (let i = 0; i < localStorage.length; i++ ) {
+    if (localStorage.getItem(localStorage.key(i))!== localStorage.getItem('formulaire')) {
     const teddy =JSON.parse (localStorage.getItem(localStorage.key(i)))
     panierArray.set(teddy.name +' '+ teddy.color, teddy)
+    }
 }
 
+console.log(panierArray)
 
 const PANIER = document.getElementById('produitPanier')
 for ([key, value] of panierArray) {
@@ -48,6 +51,7 @@ for ([key, value] of panierArray) {
     totalAdd = sousTotalAdd;
 }
 console.log('Quantité : ' + quantiteAdd + ' ; ' +  'Sous-total : ' + sousTotalAdd + ' ; ' + 'Total : ' + totalAdd);
+
 //Alimenter la carte TOTAL
 const quantiteTotal = document.getElementById('quantiteTotal');
 const sousTotal = document.getElementById('sousTotal');
@@ -55,4 +59,11 @@ const total = document.getElementById('total');
 quantiteTotal.innerText = quantiteAdd;
 sousTotal.innerText = sousTotalAdd + ' €';
 total.innerText = totalAdd + ' €';
+
+document.getElementById('button').addEventListener('click', function(e){
+    for([key, value] of panierArray){
+        localStorage.setItem(key, JSON.stringify(value))
+    }
+})
+
 
