@@ -1,12 +1,13 @@
 //Reprendre les ours dans une map
 const panierArray = new Map();
 for (let i = 0; i < localStorage.length; i++ ) {
-    if (localStorage.getItem(localStorage.key(i)) !== localStorage.getItem('formulaire')) {
-    const teddy =JSON.parse (localStorage.getItem(localStorage.key(i)))
-    panierArray.set(teddy.name +' '+ teddy.color, teddy)
+    if (localStorage.getItem(localStorage.key(i)) !== localStorage.getItem('formulaire')){
+        if (localStorage.getItem(localStorage.key(i)) !== localStorage.getItem('order')){
+        const teddy =JSON.parse (localStorage.getItem(localStorage.key(i)))
+        panierArray.set(teddy.name +' '+ teddy.color, teddy)
+        }
     }
 }
-console.log(panierArray)
 
 //Créer la liste des produit dans le récapitulatif
 const listeProduit = document.getElementById('listeProduit');
@@ -43,38 +44,62 @@ function onChange(id){
 onChange('email');
 onChange('nom');
 onChange('prenom');
-onChange('naissance');
 onChange('adresse');
-onChange('appartement');
-onChange('batiment');
-onChange('lieu-dit');
 onChange('codePostale');
 onChange('ville');
-onChange('pays');
-onChange('telephone');
-
 
 //Element stocker dans le localStorage sous forme d'objet
-document.getElementById('button').addEventListener('click', function(e) {
-    const objFormulaire = {
-        email : formulaire.get('email'),
-        nom : formulaire.get('nom'),
-        prénom : formulaire.get('prenom'),
-        naissance : formulaire.get('naissance'),
-        adresse : formulaire.get('adresse'),
-        appartement : formulaire.get('appartement'),
-        batiment : formulaire.get('batiment'),
-        lieuDit : formulaire.get('lieu-dit'),
-        codePostale : formulaire.get('codePostale'),
-        ville : formulaire.get('ville'),
-        pays : formulaire.get('pays'),
-        telephone : formulaire.get('telephone'),
-
+let contact = '';
+let products = [];
+for ([key, value] of panierArray) {
+    if(value.id != undefined){
+    products.push(value.id)
     }
-    localStorage.setItem('formulaire', JSON.stringify(objFormulaire))
+};
+console.log(products)
+
+document.getElementById('button').addEventListener('click', function(e) {
+    contact ={
+        firstName : formulaire.get('prenom'),
+        lastName : formulaire.get('nom'),
+        address : formulaire.get('adresse'),
+        city : formulaire.get('ville'),
+        email : formulaire.get('email'),
+    }
+    localStorage.setItem('formulaire', JSON.stringify(contact))
     console.log(JSON.parse(localStorage.getItem('formulaire')))
-}
-)
+    contact = JSON.parse(localStorage.getItem('formulaire'));
+
+    //envoyer élément dans l'API avec POST avec fetch 
+    fetch("http://localhost:3000/api/teddies/order", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ 
+            contact : contact,
+            products :products }),
+    })
+    .then((response) => {
+        const contenu = response.json();
+        console.log(contenu)
+        contenu.then((resolve) => {
+            if(localStorage.getItem('order') === null){
+            localStorage.setItem('order', resolve.orderId)
+            }
+            //redirection window.location.href
+            window.location = "validation.html"
+        })
+        contenu.catch((error)=> {
+            alert(`Problème avec le catch:${error.status}`)
+        })
+
+    })                 
+        .catch(function(err) {
+            return ('Un problème est apparu, veuiller réessayer ultérieurementt')
+        });
+})
+
 
 //Indiquer quand le mail de confirmation n'est pas le même
 
@@ -97,8 +122,5 @@ function emailFonction() {
     }
 }
 
-
-   
-
-
-
+console.log(localStorage)
+console.log(panierArray)

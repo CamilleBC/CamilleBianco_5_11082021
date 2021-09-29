@@ -1,6 +1,8 @@
 let id = window.location.search.substr(5);
 let url = 'http://localhost:3000/api/teddies/'+ id;
 
+console.log(window.location.search)
+
 
 fetch(url)
     .then(function(res) {
@@ -84,7 +86,8 @@ fetch(url)
                     name : teddy.get('name'), 
                     color : teddy.get('color'),
                     quantite : parseFloat(teddy.get('quantite')),
-                    prix : teddy.get('price')
+                    prix : teddy.get('price'),
+                    id : id
                 };
                   
                     const clé = `${data.name}`+ ' ' + obj.color;
@@ -106,7 +109,8 @@ fetch(url)
                       name : teddy.get('name'),
                       color : teddy.get('color'),
                       quantite : newQuantite,
-                      prix : newPrix
+                      prix : newPrix,
+                      id : id
                     }
                     
                     localStorage.setItem(clé, JSON.stringify(newObject));
