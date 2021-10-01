@@ -12,8 +12,11 @@ fetch(url)
       })
       .then(function(resJson) {
 
+            //Mettre en place le prix en euros
             const priceEuros = resJson.price / 100;
             const price = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(priceEuros);
+
+            //Alimenter la page avec l'item
             const DIV  = document.getElementById('produit');
             const item = `
             <div class="card h-50 w-75 mx-auto">
@@ -24,7 +27,7 @@ fetch(url)
                 <div class="card-text">${price}</div>
               <div class="card-text d-flex">
                 <p class="mt-3">Quantité</p>
-                <input id ="quantite" type="number" min="1" name="quantité" class="tailleSaisie m-2">
+                <input id ="quantite" value="1" type="number" min="1" name="quantité" class="tailleSaisie m-2">
               </div>
               <div class="card-text d-flex">
                 <p class="mt-3">Couleur</p>
@@ -32,7 +35,14 @@ fetch(url)
                 </select>
               </div>
               </div>
-              <a id='button' class="btn btn-secondary" href="./panier.html" role="button">Ajoutez au panier</a>
+              <div class="d-flex">
+                <div class="col text-center">
+                  <a id="button" class="btn btn-secondary" href="./panier.html" role="button">Ajoutez au panier</a>
+                </div>
+                <div class="col text-center">
+                  <a id='button' class="btn btn-secondary" href="../index.html" role="button">Revenir à l'accueil</a>
+                </div>
+              </div>
             </div>
             `;
             DIV.innerHTML += item
@@ -74,7 +84,7 @@ fetch(url)
                   teddy.set('price', priceTotal);
                 });
 
-                //Faire panier
+                //Création panier
                 const panier = new Map();
                 
                 const button = document.getElementById('button')
@@ -120,14 +130,14 @@ fetch(url)
                       
                       localStorage.setItem(clé, JSON.stringify(newObject));
                   }
-                  alert('Votre demande à bien été ajouter au panier')
+                  alert('Ce produit à bien été ajouter au panier.')
                 console.log(localStorage)
             })
 
       })
       
       .catch(function(err) {
-        // Une erreur est survenue
+        console.log(err)
       });
 
 

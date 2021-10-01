@@ -1,18 +1,21 @@
 console.log(localStorage)
+//Reprendre le panier
 const panierArray = new Map();
-console.log(localStorage.length)
-getBasket()
+getBasket();
+console.log(panierArray);
 
-console.log(panierArray)
-
+//Initialisation pour mettre les ours dans le tableau récapitulatif
 const PANIER = document.getElementById('produitPanier')
+const VIDER = document.createElement('a');
 
-if(localStorage.length < 1){
+//Si le panier est vide
+if(panierArray.size < 1){
     let divVide = document.createElement('tr')
     divVide.innerText = 'Le panier est vide'
     PANIER.appendChild(divVide)
     VIDER.classList.add('d-none')
 }
+//Si le panier est rempli d'au moins un ours
 else{
 for ([key, value] of panierArray) {
     let produitPanier = `
@@ -26,22 +29,9 @@ for ([key, value] of panierArray) {
     PANIER.innerHTML += produitPanier
 }
 }
+
+//Mis en place du bouton supprimer pour chaque élément du tableau
 let supp = document.querySelectorAll('.btn-supprimer');
-console.log(supp)
-
-const DIV = document.getElementById('panier');
-const VIDER = document.createElement('a');
-VIDER.classList.add('btn', 'btn-secondary', 'w-25', 'm-auto');
-VIDER.setAttribute('href', './panier.html');
-VIDER.innerText = 'Vider le panier';
-
-DIV.appendChild(VIDER)
-
-
-VIDER.addEventListener('click', function(e) {
-    localStorage.clear()
-});
-
 for (let i = 0; i < supp.length; i++){
     supp[i].addEventListener('click', function(e){
         let suppLocalStorage =  JSON.parse(localStorage.getItem(localStorage.key(i)));
@@ -49,9 +39,18 @@ for (let i = 0; i < supp.length; i++){
     })
 }
 
-//Calculer le total de chaque éléments
-console.log(panierArray)
+//Ajout du bouton vider complètement le panier
+const DIV = document.getElementById('panier');
+VIDER.classList.add('btn', 'btn-secondary', 'w-25', 'm-auto');
+VIDER.setAttribute('href', './panier.html');
+VIDER.innerText = 'Vider le panier';
+DIV.appendChild(VIDER)
 
+VIDER.addEventListener('click', function(e) {
+    localStorage.clear()
+});
+
+//Calculer le total de chaque éléments
 let quantiteAdd = 0;
 let sousTotalAdd = 0;
 let totalAdd = 0;
@@ -70,11 +69,17 @@ quantiteTotal.innerText = quantiteAdd;
 sousTotal.innerText = sousTotalAdd + ' €';
 total.innerText = totalAdd + ' €';
 
-document.getElementById('button').addEventListener('click', function(e){
-    for([key, value] of panierArray){
-        localStorage.setItem(key, JSON.stringify(value))
-    }
-})
 
-//si panier vide ne pas aller sur formulaire.
-//Quand panier vide rajouter élément vide
+    document.getElementById('button').addEventListener('click', function(e){
+        if(panierArray.size >= 1){
+            for([key, value] of panierArray){
+                localStorage.setItem(key, JSON.stringify(value))
+           }
+        }
+        else{
+            e.preventDefault()
+            alert('Votre panier est vide.')
+        }
+    })
+
+
