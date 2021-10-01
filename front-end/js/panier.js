@@ -1,33 +1,33 @@
-
+console.log(localStorage)
 const panierArray = new Map();
-for (let i = 0; i < localStorage.length; i++ ) {
-    if (localStorage.getItem(localStorage.key(i)) !== localStorage.getItem('formulaire')){
-        if (localStorage.getItem(localStorage.key(i)) !== localStorage.getItem('order')){
-        const teddy =JSON.parse (localStorage.getItem(localStorage.key(i)))
-        panierArray.set(teddy.name +' '+ teddy.color, teddy)
-        }
-    }
-}
+console.log(localStorage.length)
+getBasket()
 
 console.log(panierArray)
 
 const PANIER = document.getElementById('produitPanier')
+
+if(localStorage.length < 1){
+    let divVide = document.createElement('tr')
+    divVide.innerText = 'Le panier est vide'
+    PANIER.appendChild(divVide)
+    VIDER.classList.add('d-none')
+}
+else{
 for ([key, value] of panierArray) {
     let produitPanier = `
-    <tr>
+    <tr class='${key}'>
       <td class='hauteurCellule'>${value.name}</td>
       <td>${value.color}</td>
       <td>${value.quantite}</td>
       <td>${value.prix} €</td>
-      <td><a id="supprimer" class="btn btn-secondary" href="./panier.html" role="button">Supprimer</a></td>
+      <td><a class="btn btn-secondary btn-supprimer" href="./panier.html" role="button">Supprimer</a></td>
     </tr>`
     PANIER.innerHTML += produitPanier
-    const SUPPRIMER = document.getElementById('supprimer');
-    SUPPRIMER.addEventListener('click', function(e){
-        localStorage.removeItem(key);
-        delete produitPanier
-    })
 }
+}
+let supp = document.querySelectorAll('.btn-supprimer');
+console.log(supp)
 
 const DIV = document.getElementById('panier');
 const VIDER = document.createElement('a');
@@ -37,9 +37,17 @@ VIDER.innerText = 'Vider le panier';
 
 DIV.appendChild(VIDER)
 
+
 VIDER.addEventListener('click', function(e) {
     localStorage.clear()
 });
+
+for (let i = 0; i < supp.length; i++){
+    supp[i].addEventListener('click', function(e){
+        let suppLocalStorage =  JSON.parse(localStorage.getItem(localStorage.key(i)));
+        localStorage.removeItem(suppLocalStorage.name + ' ' + suppLocalStorage.color);
+    })
+}
 
 //Calculer le total de chaque éléments
 console.log(panierArray)
@@ -68,4 +76,5 @@ document.getElementById('button').addEventListener('click', function(e){
     }
 })
 
-
+//si panier vide ne pas aller sur formulaire.
+//Quand panier vide rajouter élément vide
