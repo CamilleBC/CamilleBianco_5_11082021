@@ -1,3 +1,4 @@
+//Appeler le panier
 function getBasket(){
     for (let i = 0; i < localStorage.length; i++ ) {
         if (localStorage.getItem(localStorage.key(i)) !== localStorage.getItem('formulaire')){
@@ -7,4 +8,10 @@ function getBasket(){
             }
         }
     }
+};
+
+//Convertir les centimes en euros
+function conversionEuros(data){
+    const priceEuros = data / 100;
+    price = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(priceEuros);
 }

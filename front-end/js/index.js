@@ -6,9 +6,13 @@ fetch('http://localhost:3000/api/teddies')
   })
   .then(function(resJson) {
     
+    //Boucle pour une itération sur tous les ours de l'API
     resJson.forEach(item => {
-      const priceEuros = item.price / 100;
-      const price = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(priceEuros);
+
+        //Convertir les centimes en euros
+        conversionEuros(item.price);
+
+        //Mis en place carte produit
         const DIV  = document.getElementById('items') ;
         DIV.innerHTML += `
         <div class="card col-5 m-auto mt-1 mb-1" style="width : 20rem; height : 25rem">
@@ -25,6 +29,7 @@ fetch('http://localhost:3000/api/teddies')
     
   })
   
+  //Catch si erreur dans le fetch.
   .catch(function(err) {
     const DIV  = document.getElementById('items');
     DIV.innerHTML +=`

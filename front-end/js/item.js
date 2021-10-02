@@ -12,9 +12,8 @@ fetch(url)
       })
       .then(function(resJson) {
 
-            //Mettre en place le prix en euros
-            const priceEuros = resJson.price / 100;
-            const price = new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(priceEuros);
+            //Convertir les centimes en euros
+            conversionEuros(resJson.price)
 
             //Alimenter la page avec l'item
             const DIV  = document.getElementById('produit');
@@ -59,7 +58,7 @@ fetch(url)
                 const teddy = new Map()
 
                 //Nom
-                const nom =resJson.name; 
+                const nom = resJson.name; 
                 teddy.set ('name', nom) 
 
                 //Couleur
