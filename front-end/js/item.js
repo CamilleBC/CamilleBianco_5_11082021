@@ -54,34 +54,10 @@ fetch(url)
                option.innerHTML = color;
                select.appendChild(option)
             }
-            //Préparation de la Map pour récupérer information
+ 
+                //Préparation de la Map pour récupérer information
                 const teddy = new Map()
-
-                //Nom
-                const nom = resJson.name; 
-                teddy.set ('name', nom) 
-
-                //Couleur
-                const colorChoose = document.getElementById('color');
-                let colorValue= colorChoose.value;
-                teddy.set('color', colorValue);
-                colorChoose.addEventListener('change', function(e){
-                  colorValue = colorChoose.value
-                  teddy.set('color', colorValue);
-                });
-               
-                //Quantité et prix total
-                const quantite = document.getElementById('quantite');
-                let quantityValue = quantite.value;
-                teddy.set('quantite', quantityValue);
-                let priceTotal = parseFloat(price);
-                teddy.set('price', priceTotal)
-                quantite.addEventListener('change', function(e){
-                  quantityValue = quantite.value;
-                  teddy.set('quantite', quantityValue);
-                  priceTotal = parseFloat(price) * quantityValue;
-                  teddy.set('price', priceTotal);
-                });
+                setProduct(teddy, resJson)
 
                 //Création panier
                 const panier = new Map();
