@@ -1,7 +1,7 @@
 let id = window.location.search.substr(5);
 let url = 'http://localhost:3000/api/teddies/'+ id;
 
-console.log(window.location.search)
+
 
 
 fetch(url)
@@ -26,7 +26,7 @@ fetch(url)
                 <div class="card-text">${price}</div>
               <div class="card-text d-flex">
                 <p class="mt-3">Quantité</p>
-                <input id ="quantite" value="1" type="number" min="1" name="quantité" class="tailleSaisie m-2">
+                <input id ="quantite" value="1" type="number" min="1" name="quantité" class="input tailleSaisie m-2">
               </div>
               <div class="card-text d-flex">
                 <p class="mt-3">Couleur</p>
@@ -54,61 +54,65 @@ fetch(url)
                option.innerHTML = color;
                select.appendChild(option)
             }
- 
-                //Préparation de la Map pour récupérer information
-                const teddy = new Map()
-                setProduct(teddy, resJson)
+          
+            //Préparation de la Map pour récupérer information
+            const teddy = new Map()
+            setProduct(teddy, resJson)
 
-                //Création panier
-                const panier = new Map();
+            //Création panier
+            const panier = new Map();
                 
-                const button = document.getElementById('button')
-                button.addEventListener('click', function(e) {
-                  e.preventDefault()
+            const button = document.getElementById('button')
+            button.addEventListener('click', function(e) {
+              e.preventDefault()
+              if(teddy.get('quantite')<= 0){
+                alert('ATTENTION : Une erreur est apparu dans la saisie de votre quantité.')
+              }
+              else{
 
-                  //Reprendre les éléments de l'ours dans un objet
-                  const obj = {
-                    name : teddy.get('name'), 
-                    color : teddy.get('color'),
-                    quantite : parseFloat(teddy.get('quantite')),
-                    prix : teddy.get('price'),
-                    id : id
-                  };
+              //Reprendre les éléments de l'ours dans un objet
+                const obj = {
+                  name : teddy.get('name'), 
+                  color : teddy.get('color'),
+                  quantite : parseFloat(teddy.get('quantite')),
+                  prix : teddy.get('price'),
+                  id : id
+                };
 
-                  //Créer la clé du localStorage
-                  const clé = `${resJson.name}`+ ' ' + obj.color;
-                  const ours = JSON.parse(localStorage.getItem(clé));
+                //Créer la clé du localStorage
+                const clé = `${resJson.name}`+ ' ' + obj.color;
+                const ours = JSON.parse(localStorage.getItem(clé));
 
-                  //Vérifier si l'ours existe déjà
-                    if (ours === null) {
-                      //Si l'ours n'existe créer l'objet dans le localStorage
-                      panier.set(clé, obj);
-                      for ([key, value] of panier) {
-                        localStorage.setItem(key, JSON.stringify(value));
-                      }
-                    }  
-                    else {
-                      //Si l'ours existe, ajouter la quantité à l'objet déjà existant
-                      const quantiteExistante = parseFloat(ours.quantite);
-                      const newQuantite = quantiteExistante + obj.quantite
-                
-                      const prixExistant = parseFloat(ours.prix)
-                      const newPrix = prixExistant + obj.prix
-                
-                      const newObject = {
-                        name : teddy.get('name'),
-                        color : teddy.get('color'),
-                        quantite : newQuantite,
-                        prix : newPrix,
-                        id : id
-                      }
-                      
-                      localStorage.setItem(clé, JSON.stringify(newObject));
+                //Vérifier si l'ours existe déjà
+                if (ours === null) {
+                //Si l'ours n'existe créer l'objet dans le localStorage
+                  panier.set(clé, obj);
+                  for ([key, value] of panier) {
+                    localStorage.setItem(key, JSON.stringify(value));
                   }
-                  alert('Ce produit à bien été ajouter au panier.')
+                }  
+                else {
+                  //Si l'ours existe, ajouter la quantité à l'objet déjà existant
+                  const quantiteExistante = parseFloat(ours.quantite);
+                  const newQuantite = quantiteExistante + obj.quantite
+                
+                  const prixExistant = parseFloat(ours.prix)
+                  const newPrix = prixExistant + obj.prix
+                
+                  const newObject = {
+                    name : teddy.get('name'),
+                    color : teddy.get('color'),
+                    quantite : newQuantite,
+                    prix : newPrix,
+                    id : id
+                  }
+                      
+                  localStorage.setItem(clé, JSON.stringify(newObject));
+                }
+                alert('Ce produit à bien été ajouter au panier.')
                 console.log(localStorage)
+              }
             })
-
       })
       
       .catch(function(err) {

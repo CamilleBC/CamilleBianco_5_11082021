@@ -1,4 +1,4 @@
-//Pour le panier
+
 
 //Reprendre le panier
 let panierArray = new Map();
@@ -117,7 +117,7 @@ document.getElementById('buttonFormulaire').addEventListener('click', function(e
         city : formulaire.get('ville'),
         email : formulaire.get('email'),
     }
-    //Vérification input
+    //Vérification des input
     let checkName = /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/ ;
     let checkAdress = /(\d{1,}) [a-zA-Z0-9\s]+(\.)? [a-zA-Z]+()?/;
     let checkCity = /^[[:alpha:]]([-' ]?[[:alpha:]])*$/;
@@ -180,29 +180,6 @@ document.getElementById('buttonFormulaire').addEventListener('click', function(e
     }
 }
 })
-
-//Indiquer quand le mail de confirmation n'est pas le même
-function emailFonction() {
-    let email = document.getElementById('email');
-    let confirmationEmail = document.getElementById("confirmationEmail");
-    if (email.value !== confirmationEmail.value){
-        email.classList.add('border-danger');
-        confirmationEmail.classList.add('border-danger');
-        document.getElementById('erreurEmail').innerText = 'Les E-mails indiqués ne sont pas identiques';
-        document.getElementById('erreurEmail').classList.add('text-danger');
-    }
-    else {
-        document.getElementById('erreurEmail').classList.add('d-none');
-        email.classList.remove('border-danger');
-        confirmationEmail.classList.remove('border-danger');
-    }
-}
-
-document.getElementById("confirmationEmail").onchange = function() {emailFonction()};
-document.getElementById("email").onchange = function() {emailFonction()};
-
-
-
 
 
 console.log(localStorage)
