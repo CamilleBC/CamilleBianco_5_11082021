@@ -22,7 +22,3 @@ document.getElementById('order').innerHTML = `Votre commande numéro <strong> ${
 document.getElementById('button').addEventListener('click', function(e){
     localStorage.clear()
 })
-
-document.getElementById('accueil').addEventListener('click', function(e){
-    localStorage.clear()
-})

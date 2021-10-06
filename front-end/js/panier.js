@@ -104,12 +104,16 @@ for ([key, value] of panierArray) {
 };
 console.log(products)
 
+//Si le bouton Valider est cliqué alors que le panier est vide
+if(panierArray.size < 1){
+    document.getElementById('buttonFormulaire').addEventListener('click', function(e) {
+        alert('Votre panier est vide')
+    })
+}
+//Se le bouton Valider est cliqué alors que le panier est rempli
+else{
 document.getElementById('buttonFormulaire').addEventListener('click', function(e) {
-    if (panierArray.size < 1){
-        e.preventDefault()
-        alert('Votre panier est vide.')
-    }
-    else{
+    e.preventDefault()
     contact ={
         firstName : formulaire.get('prenom'),
         lastName : formulaire.get('nom'),
@@ -162,25 +166,22 @@ document.getElementById('buttonFormulaire').addEventListener('click', function(e
         const contenu = response.json();
         console.log(contenu)
         contenu.then((resolve) => {
+            console.log(resolve.orderId)
             if(localStorage.getItem('order') === null){
             localStorage.setItem('order', resolve.orderId)
-            }
-            //redirection window.location.href
             window.location = "validation.html"
+            }
         })
         contenu.catch((error)=> {
             alert(`Problème avec le catch:${error.status}`)
-        })
-
-    })
-              
+        });
+    })              
         .catch(function(err) {
             return ('Un problème est apparu, veuiller réessayer ultérieurementt')
         });
     }
-}
 })
+}
 
 
 console.log(localStorage)
-console.log(panierArray)
