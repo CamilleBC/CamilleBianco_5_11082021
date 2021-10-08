@@ -124,23 +124,23 @@ document.getElementById('buttonFormulaire').addEventListener('click', function(e
     //Vérification des input
     let checkName = /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/ ;
     let checkAdress = /(\d{1,}) [a-zA-Z0-9\s]+(\.)? [a-zA-Z]+()?/;
-    let checkCity = /^[[:alpha:]]([-' ]?[[:alpha:]])*$/;
+    let checkCity =  /[a-zA-Z]+(?:[ '-][a-zA-Z]+)*/;
     let checkMail = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
     if (checkName.test(formulaire.get('prenom'))==false){
         e.preventDefault()
-        alert(`Veuillez vérifier les informations concernant : le prénom. Les caractère spéciaux et numériques ne sont pas autorisés.`)
+        alert(`Veuillez vérifier les informations concernant : le prénom. Les caractères spéciaux et numériques ne sont pas autorisés.`)
     }
     else if (checkName.test(formulaire.get('nom'))==false){
         e.preventDefault()
-        alert(`Veuillez vérifier les informations concernant : le nom. Les caractère spéciaux et numériques ne sont pas autorisés.`)
+        alert(`Veuillez vérifier les informations concernant : le nom. Les caractères spéciaux et numériques ne sont pas autorisés.`)
     }
     else if(checkAdress.test(formulaire.get('adresse'))== false){
         e.preventDefault()
         alert(`Veuillez vérifier les informations concernant : l'adresse.`)
     }
-    else if(checkCity.test(formulaire.get('ville'))){
+    else if(checkCity.test(formulaire.get('ville'))== false){
         e.preventDefault()
-        alert(`Veuillez vérifier les informations concernant : le ville. Les caractère spéciaux et numériques ne sont pas autorisés.`)
+        alert(`Veuillez vérifier les informations concernant : le ville. Les caractères spéciaux et numériques ne sont pas autorisés.`)
     }
     else if(checkMail.test(formulaire.get('email'))== false){
         e.preventDefault()
