@@ -8,10 +8,21 @@
 ### Fonctionnalités
 
 * Une page de vue sous forme de liste, montrant tous les articles disponibles à la vente.
+
+ ![Capture accueil](https://user-images.githubusercontent.com/80795153/155713183-a9609903-6b3b-4cfc-8515-9442d4683cb8.JPG)
+
 * Une page “produit”, qui affiche de manière dynamique l'élément sélectionné par l'utilisateur et lui permet de personnaliser le produit et de l'ajouter à son panier.
+
+ ![Page 1](https://user-images.githubusercontent.com/80795153/155713772-068448ca-a693-4621-a137-a8c4de64450c.JPG)
+
 * Une page “panier” contenant un résumé des produits dans le panier, le prix total et un formulaire permettant de passer une commande.
+
+![Panier](https://user-images.githubusercontent.com/80795153/155714040-b92b4ce0-4284-47fd-8236-45415c57bd2b.JPG)
+![Formulaire](https://user-images.githubusercontent.com/80795153/155714226-cd93f265-2086-4cf2-a008-418eb4fc8a64.JPG)
+
 * Une page de confirmation de commande, remerciant l'utilisateur pour sa commande, et indiquant le prix total et l'identifiant de commande envoyé par le serveur.
 
+![Validation](https://user-images.githubusercontent.com/80795153/155714378-f6781d62-7092-44f1-96fc-3a49749c4f80.JPG)
 
 ### Contrainte technique
 
